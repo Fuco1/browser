@@ -12,9 +12,11 @@
     </webview>
     <div style="height: 20px; width: 100%;" id="minibuffer">
       <div id="minibuffer-status">Ready</div>
-      <div id="minibuffer-read" class="invisible">
-        <div style="float:left;">M-x </div>
-        <input type="text" id="minibuffer-read-input" style="width: auto !important;"/>
+      <div id="minibuffer-read" style="display: flex; width: 100%;" class="invisible">
+        <div style="flex-basis: content;">M-x </div>
+        <div style="flex-grow: 1;">
+          <input type="text" id="minibuffer-read-input" style="width: 100%;"/>
+        </div>
       </div>
     </div>
   </body>
