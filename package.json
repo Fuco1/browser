@@ -1,0 +1,20 @@
+{
+    "name": "browser",
+    "version": "1.0.0",
+    "description": "Conkeror-like browser on Electron",
+    "main": "main.js",
+    "scripts": {
+        "start": "electron ."
+    },
+    "repository": "https://github.com/Fuco1/browser",
+    "keywords": ["browser", "conkeror"],
+    "author": "Matus Goljer",
+    "license": "GPL 3",
+    "devDependencies": {
+        "electron": "~1.6.2"
+    },
+    "dependencies": {
+        "electron-reload": "^1.1.0",
+        "mousetrap": "^1.6.1"
+    }
+}

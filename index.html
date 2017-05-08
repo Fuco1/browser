@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html style="height: 100%;">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="main.css">
+    <title>Hello World!</title>
+  </head>
+  <body style="width: calc(100% - 4px); height: 100%; padding: 0px; margin: 0px;">
+    <webview src="https://www.github.com/"
+             id="webview"
+             style="width: 100%; height: calc(100% - 21px)">
+    </webview>
+    <div style="height: 20px; width: 100%;" id="minibuffer">
+      <div id="minibuffer-status">Ready</div>
+      <div id="minibuffer-read" class="invisible">
+        <div style="float:left;">M-x </div>
+        <input type="text" id="minibuffer-read-input" style="width: auto !important;"/>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    require('./renderer.js')
+  </script>
+</html>
