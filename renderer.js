@@ -1,4 +1,6 @@
 const Mousetrap = require('mousetrap');
+const showhide = require('./app/js/showhide');
+
 const remote = require('electron').remote
 const window = remote.getCurrentWindow()
 
@@ -19,16 +21,21 @@ webview.addEventListener('did-start-loading', loadstart)
 webview.addEventListener('did-stop-loading', loadstop)
 
 Mousetrap.bind('alt+x', function () {
-    minibufferStatus.classList.add('invisible')
-    minibufferRead.classList.remove('invisible')
+    showhide.show(minibufferRead)
+    showhide.hide(minibufferStatus)
     minibufferReadInput.focus()
 })
 
 minibufferReadInput.addEventListener('keyup', function (event) {
     if (event.keyCode === 13) {
-        webview.loadURL(minibufferReadInput.value)
+        let url = minibufferReadInput.value;
+        if (!url.startsWith('https://') &&
+            !url.startsWith('http://')) {
+            url = 'https://' + url
+        }
+        webview.loadURL(url)
         minibufferReadInput.value = ''
-        minibufferRead.classList.add('invisible')
-        minibufferStatus.classList.remove('invisible')
+        showhide.hide(minibufferRead)
+        showhide.show(minibufferStatus)
     }
 })

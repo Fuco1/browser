@@ -2,26 +2,25 @@
 <html style="height: 100%;">
   <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="app/css/minibuffer.css">
+    <link rel="stylesheet" href="app/css/main.css">
+
+    <link rel="import" href="app/html/minibuffer.html">
     <title>Hello World!</title>
   </head>
   <body style="width: calc(100% - 4px); height: 100%; padding: 0px; margin: 0px;">
-    <webview src="https://www.github.com/"
-             id="webview"
-             style="width: 100%; height: calc(100% - 21px)">
-    </webview>
-    <div style="height: 20px; width: 100%;" id="minibuffer">
-      <div id="minibuffer-status">Ready</div>
-      <div id="minibuffer-read" class="minibuffer-read invisible">
-        <div style="flex-basis: content;">M-x </div>
-        <div style="flex-grow: 1;">
-          <input type="text" id="minibuffer-read-input" style="width: 100%;"/>
-        </div>
-      </div>
+    <div class="content" style="width: 100%; height: 100%;">
+      <webview src="https://www.github.com/"
+               id="webview"
+               style="width: 100%; height: calc(100% - 21px)">
+      </webview>
+      <div style="height: 20px; width: 100%;" id="minibuffer"></div>
     </div>
   </body>
 
   <script>
+    require('./app/assets/imports.js')
+
     require('./renderer.js')
   </script>
 </html>
