@@ -20,6 +20,26 @@ const loadstop = () => {
 webview.addEventListener('did-start-loading', loadstart)
 webview.addEventListener('did-stop-loading', loadstop)
 
+let search
+let isearch = false
+Mousetrap.bind('ctrl+s', function() {
+    if (!isearch) {
+        showhide.show(minibufferRead)
+        showhide.hide(minibufferStatus)
+        minibufferReadInput.focus()
+    }
+    isearch = true
+
+    let searchStr = minibufferReadInput.value
+    if (searchStr.length > 0) {
+        webview.findInPage(searchStr)
+    }
+})
+
+webview.addEventListener('found-in-page', (e) => {
+    minibufferStatus.innerText = e.result.activeMatchOrdinal
+})
+
 Mousetrap.bind('alt+x', function () {
     showhide.show(minibufferRead)
     showhide.hide(minibufferStatus)
@@ -28,14 +48,28 @@ Mousetrap.bind('alt+x', function () {
 
 minibufferReadInput.addEventListener('keyup', function (event) {
     if (event.keyCode === 13) {
-        let url = minibufferReadInput.value;
-        if (!url.startsWith('https://') &&
-            !url.startsWith('http://')) {
-            url = 'https://' + url
+        if (isearch) {
+            isearch = false
+            webview.stopFindInPage('clearSelection')
+        } else {
+            let url = minibufferReadInput.value;
+            if (!url.startsWith('https://') &&
+                !url.startsWith('http://')) {
+                url = 'https://' + url
+            }
+            webview.loadURL(url)
         }
-        webview.loadURL(url)
         minibufferReadInput.value = ''
         showhide.hide(minibufferRead)
         showhide.show(minibufferStatus)
+        return
+    }
+
+    if (isearch &&
+        event.keyCode > 64 && event.keyCode < 91) {
+        let searchStr = minibufferReadInput.value
+        if (searchStr.length > 0) {
+            webview.findInPage(searchStr)
+        }
     }
 })
